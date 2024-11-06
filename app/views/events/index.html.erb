@@ -1,0 +1,35 @@
+<p style="color: green"><%= notice %></p>
+<%= link_to "New event", new_event_path %>
+
+
+<h1>Events</h1>
+
+<div id="events">
+  <% @events.each do |event| %>
+    <%= render event %>
+    <p>
+      <%= link_to "Show this event", event %>
+    </p>
+  <% end %>
+</div>
+
+<div id="recent-events">
+  <h2>Events Added in the Last 30 Days</h2>
+  <% @recent_events.each do |event| %>
+    <%= render event %>
+    <p>
+      <%= link_to "Show this event", event %>
+    </p>
+  <% end %>
+</div>
+
+<div id="upcoming_events">
+  <h2>Next week's events</h2>
+  <% @upcoming_events.each do |event| %>
+    <%= render event %>
+    <p>
+      <%= link_to "Show this event", event %>
+    </p>
+  <% end %>
+</div>
+
