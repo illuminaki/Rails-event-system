@@ -1,4 +1,6 @@
 class Event < ApplicationRecord
+    belongs_to :user
+
     # Validations
     validates :name, presence: true,  # Ensure that the name is present
     length: { in: 3..100 },  # Ensure the name length is between 3 and 100 characters

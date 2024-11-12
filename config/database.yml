@@ -5,7 +5,7 @@ default: &default
 
 development:
   <<: *default
-  database: event_system_development
+  database: event_system_development-s
   password: <%= ENV["DATABASE_PASSWORD_LOCAL"] %>
   username: <%= ENV["DATABASE_USER_LOCAL"] %>
   host: <%= ENV["DATABASE_HOST_LOCAL"] %>
