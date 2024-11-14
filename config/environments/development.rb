@@ -67,7 +67,18 @@ Rails.application.configure do
 
   # Uncomment if you wish to allow Action Cable access from any origin.
   # config.action_cable.disable_request_forgery_protection = true
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    address: 'smtp-relay.brevo.com',
+    port: 587,
+    user_name: ENV['BREVO_USERNAME'],
+    password: ENV['BREVO_PASSWORD'],
+    authentication: 'login',
+    enable_starttls_auto: true,
+    openssl_verify_mode: 'none'
+  }
 
+  # Specify a default URL for Devise’s confirmation links
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
 
 end
