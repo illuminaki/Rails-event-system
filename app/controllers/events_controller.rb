@@ -1,7 +1,6 @@
 class EventsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
   before_action :set_event, only: [:show, :edit, :update, :destroy]
-  before_action :authorize_user!, only: [:edit, :update, :destroy]
 
   # GET /events or /events.json
   def index
@@ -29,12 +28,13 @@ class EventsController < ApplicationController
     @event = Event.new(event_params)
     @event = current_user.events.build(event_params)
 
-
     respond_to do |format|
       if @event.save
         format.html { redirect_to @event, notice: "Event was successfully created." }
         format.json { render :show, status: :created, location: @event }
       else
+        # mensaje de alerta cuando la creación falle
+        flash[:alert] = "There was an error creating the event."
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @event.errors, status: :unprocessable_entity }
       end
