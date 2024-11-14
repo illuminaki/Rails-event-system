@@ -170,6 +170,8 @@ Add the necessary logic to store the currently signed-in user as the creator of 
 ```bash
     rails generate rspec:install
 ```
-4. Configure the rails_helper.rb file and create the necessary folders for models and controllers
+4. Configure rails_helper.rb for Additional Testing Tools
+Edit rails_helper.rb to configure RSpec with FactoryBot, Faker, Devise, and SimpleCov.
 
-Customize the rails_helper.rb file to configure RSpec with any necessary setup for testing models, controllers, and other parts of your application. Ensure you have directories such as spec/models and spec/controllers for organizing your tests.
+5. Create Testing Directories
+Ensure directories like spec/models, spec/controllers, and spec/factories are present. You can organize factories under spec/factories to keep them organized.
