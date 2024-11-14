@@ -29,8 +29,8 @@ class Event < ApplicationRecord
 
     # Custom validation method to check if the date is in the past
     def date_is_not_past
-        if date.present? && date < Date.today  # If the date is not in the future
-            errors.add(:date, "cannot be in the past")  # Add an error if the event date is in the past
+        if date.present? && date < Date.today - 7.days  # Cambiado a 7 días
+            errors.add(:date, "cannot be more than 7 days in the past")
         end
     end
 

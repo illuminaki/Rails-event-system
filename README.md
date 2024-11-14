@@ -139,3 +139,39 @@ Add the necessary logic to store the currently signed-in user as the creator of 
 ```bash
     @event = current_user.events.build(event_params)
 ```
+
+# Step 3 Testing
+
+
+1. Add required gems to your Gemfile
+
+```bash
+    # rspec-rails integrates the Rails testing helpers into RSpec.
+    gem 'rspec-rails', '~> 7.1'
+    # factory_bot provides a framework and DSL for defining and using factories - less error-prone, more explicit, and all-around easier to work with than fixtures
+    gem 'factory_bot_rails', '~> 6.4', '>= 6.4.4'
+    gem 'rails-controller-testing', '~> 1.0', '>= 1.0.5'
+    # Faker, a port of Data::Faker from Perl, is used to easily generate fake data: names, addresses, phone numbers, etc.
+    gem 'faker', '~> 3.5', '>= 3.5.1'
+    # Code coverage for Ruby with a UI
+    gem 'simplecov', '~> 0.22.0'
+    # autenticacion
+    gem 'devise', '~> 4.9', '>= 4.9.4'
+    # pruebas de integración o pruebas de características (feature tests)
+    gem "capybara"
+    gem "selenium-webdriver"
+```
+2. Run bundle install
+```bash
+    bundle install
+```
+3. Install RSpec
+
+```bash
+    rails generate rspec:install
+```
+4. Configure rails_helper.rb for Additional Testing Tools
+Edit rails_helper.rb to configure RSpec with FactoryBot, Faker, Devise, and SimpleCov.
+
+5. Create Testing Directories
+Ensure directories like spec/models, spec/controllers, and spec/factories are present. You can organize factories under spec/factories to keep them organized.

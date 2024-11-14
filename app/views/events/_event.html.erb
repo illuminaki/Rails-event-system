@@ -1,7 +1,9 @@
-<div id="<%= dom_id event %>">
+<div id="<%= dom_id(event) %>">
   <p>
     <strong>Nombre:</strong>
-    <%= event.name %>
+    <div class="testing-event-name" id="event-<%= event.id %>">
+      <%= link_to event.name, event_path(event) %>
+    </div>
   </p>
 
   <p>
@@ -13,5 +15,4 @@
     <strong>Descripcion:</strong>
     <%= event.description %>
   </p>
-
 </div>
