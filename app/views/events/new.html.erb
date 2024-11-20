@@ -1,9 +1,16 @@
-<h1>New event</h1>
+<div class="container mx-auto p-6 max-w-4xl">
 
-<%= render "form", event: @event %>
+  <!-- Título principal -->
+  <h1 class="text-3xl font-bold mb-6 text-gray-800">New Event</h1>
 
-<br>
+  <!-- Renderizar el formulario -->
+  <div class="bg-white p-8 rounded-lg shadow-md">
+    <%= render "form", event: @event %>
+  </div>
 
-<div>
-  <%= link_to "Back to events", events_path %>
+  <!-- Enlace para volver a la lista de eventos -->
+  <div class="mt-6">
+    <%= link_to "Back to events", events_path, class: "text-blue-600 hover:text-blue-800 font-semibold" %>
+  </div>
+
 </div>

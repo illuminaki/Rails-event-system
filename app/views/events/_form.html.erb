@@ -1,32 +1,35 @@
-<%= form_with(model: event) do |form| %>
+<%= form_with(model: event, local: true) do |form| %>
   <% if event.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(event.errors.count, "error") %> prohibited this event from being saved:</h2>
-
-      <ul>
-        <% event.errors.each do |error| %>
-          <li><%= error.full_message %></li>
+    <div class="mb-6 p-4 text-red-800 bg-red-100 border border-red-300 rounded">
+      <h2 class="font-bold mb-2"><%= pluralize(event.errors.count, "error") %> prohibited this event from being saved:</h2>
+      <ul class="list-disc pl-5">
+        <% event.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
         <% end %>
       </ul>
     </div>
   <% end %>
 
-  <div>
-    <%= form.label :name, style: "display: block" %>
-    <%= form.text_field :name %>
+  <!-- Campo Nombre -->
+  <div class="mb-6">
+    <%= form.label :name, class: "block text-gray-700 font-bold mb-2" %>
+    <%= form.text_field :name, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
   </div>
 
-  <div>
-    <%= form.label :date, style: "display: block" %>
-    <%= form.date_field :date %>
+  <!-- Campo Fecha -->
+  <div class="mb-6">
+    <%= form.label :date, class: "block text-gray-700 font-bold mb-2" %>
+    <%= form.date_field :date, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
   </div>
 
-  <div>
-    <%= form.label :description, style: "display: block" %>
-    <%= form.text_area :description %>
+  <!-- Campo Descripción -->
+  <div class="mb-6">
+    <%= form.label :description, class: "block text-gray-700 font-bold mb-2" %>
+    <%= form.text_area :description, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
   </div>
 
-  <div>
-    <%= form.submit %>
+  <!-- Botón Submit -->
+  <div class="flex items-center justify-start">
+    <%= form.submit "Save Event", class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" %>
   </div>
 <% end %>

@@ -175,3 +175,113 @@ Edit rails_helper.rb to configure RSpec with FactoryBot, Faker, Devise, and Simp
 
 5. Create Testing Directories
 Ensure directories like spec/models, spec/controllers, and spec/factories are present. You can organize factories under spec/factories to keep them organized.
+
+# Step 4 Css Tailwind CSS
+
+
+1. Add required gems to your Gemfile
+
+### 1. **Agregar la gema de Tailwind CSS**
+En tu archivo `Gemfile`, agrega la gema `tailwindcss-rails`:
+
+```bash
+gem "tailwindcss-rails"
+```
+
+Luego, ejecuta:
+
+```bash
+bundle install
+```
+
+### 2. **Instalar Tailwind CSS en el proyecto**
+Después de añadir la gema, debes ejecutar un comando para instalar Tailwind CSS en tu proyecto Rails:
+
+```bash
+rails tailwindcss:install
+```
+
+Este comando hace lo siguiente:
+- Crea un archivo `tailwind.config.js` en la raíz de tu proyecto, donde puedes personalizar la configuración de Tailwind.
+- Añade un archivo CSS inicial para Tailwind (`app/assets/stylesheets/application.tailwind.css`).
+- Actualiza los archivos necesarios para que Tailwind CSS esté listo para ser usado.
+- Es decir deberias comprobar que los archivos mencionados anteriormente esten creados segun lo esperado
+
+### 3. **Actualizar el archivo CSS para incluir Tailwind**
+En la instalación, se generará un archivo llamado `application.tailwind.css` en la carpeta `app/assets/stylesheets/`. Este archivo ya incluye las directivas necesarias para Tailwind, como:
+
+```bash
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+```
+
+Este archivo se encargará de importar todos los estilos de Tailwind.
+
+### 4. **Configurar tu layout para usar Tailwind**
+Es posible que debas asegurarte de que tu aplicación esté usando el CSS generado por Tailwind. Abre el archivo `app/views/layouts/application.html.erb` y verifica que está utilizando el archivo CSS correcto:
+
+```bash
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>RailsEventSystem</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  </head>
+
+  <body>
+    <%= yield %>
+  </body>
+</html>
+```
+
+**Nota**: Asegúrate de que la línea `<%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>` esté presente. Esto se encargará de cargar el CSS de Tailwind en la aplicación.
+
+### 5. **Personalización opcional de Tailwind**
+Tailwind CSS incluye un archivo de configuración (`tailwind.config.js`) que te permite personalizar los colores, espaciados, y otras configuraciones. Puedes editar este archivo según tus necesidades.
+
+Por ejemplo, abre `tailwind.config.js`:
+
+```js
+module.exports = {
+  content: [
+    './app/**/*.html.erb',
+    './app/helpers/**/*.rb',
+    './app/javascript/**/*.js',
+    './app/views/**/*'
+  ],
+  theme: {
+    extend: {},
+  },
+  plugins: [],
+}
+```
+
+Asegúrate de que `content` tenga las rutas adecuadas para escanear y purgar el CSS no utilizado.
+
+### 6. **Iniciar el servidor y verificar**
+Finalmente, inicia tu servidor Rails:
+
+```bash
+./bin/dev
+```
+
+Ahora deberías poder usar clases de Tailwind en tus vistas. Puedes probarlo añadiendo una clase como `bg-blue-500` en alguna de tus vistas para ver si funciona:
+
+
+### **Solución de problemas comunes**
+1. **Problemas con Turbo y Tailwind**: Turbo a veces puede causar problemas con la recarga de CSS. Puedes intentar deshabilitar Turbo para algunas secciones si ves que el CSS no se aplica como esperas.
+
+2. **Compilación del CSS**: Asegúrate de que el archivo CSS generado esté siendo compilado correctamente. Si haces cambios en el archivo `tailwind.config.js`, podrías necesitar reiniciar el servidor Rails para que los cambios se reflejen.
+
+3. **PurgeCSS**: Tailwind purga los estilos que no son utilizados para mantener el CSS final ligero. Asegúrate de que tus clases estén dentro de las rutas especificadas en `tailwind.config.js`.
+
+### **Resumen**  🚀
+- Agregaste `tailwindcss-rails` al `Gemfile`.
+- Ejecutaste `rails tailwindcss:install` para instalar Tailwind.
+- Verificaste que el archivo `application.html.erb` incluye la referencia a `application.css`.
+- Puedes personalizar Tailwind en el archivo `tailwind.config.js`.

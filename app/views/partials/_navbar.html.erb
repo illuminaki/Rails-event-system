@@ -1,15 +1,29 @@
-<nav>
-  <ul>
-    <% if user_signed_in? %>
-        <li>
-            <%= form_for(:user, url: destroy_user_session_path, method: :delete) do |f| %>
-            <%= f.submit 'Logout', class: 'btn btn-danger' %>
-        </li>
-    <% end %>
+<nav class="bg-blue-600 text-white p-4 shadow-md">
+  <div class="container mx-auto flex items-center justify-between">
+    
+    <!-- Logo y enlace al root de la app -->
+    <div class="flex items-center space-x-4">
+      <%= link_to 'Home', root_path, class: "text-2xl font-bold hover:text-gray-200" %>
+    </div>
 
-    <% else %>
-      <li><%= link_to 'Login', new_user_session_path %></li>
-      <li><%= link_to 'Register', new_user_registration_path %></li>
-    <% end %>
-  </ul>
+    <!-- Menú de navegación -->
+    <ul class="flex items-center space-x-6">
+      <% if user_signed_in? %>
+        <!-- Enlace de Logout -->
+        <li>
+          <%= form_for(:user, url: destroy_user_session_path, method: :delete) do |f| %>
+            <%= f.submit 'Logout', class: 'bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline' %>
+          <% end %>
+        </li>
+      <% else %>
+        <!-- Enlaces de Login y Registro -->
+        <li>
+          <%= link_to 'Login', new_user_session_path, class: "hover:text-gray-300 text-lg font-semibold" %>
+        </li>
+        <li>
+          <%= link_to 'Register', new_user_registration_path, class: "hover:text-gray-300 text-lg font-semibold" %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
 </nav>

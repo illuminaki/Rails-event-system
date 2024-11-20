@@ -1,18 +1,33 @@
-<div id="<%= dom_id(event) %>">
-  <p>
-    <strong>Nombre:</strong>
+<div id="<%= dom_id(event) %>" class="border p-6 mb-6 bg-gray-50 rounded-lg shadow hover:shadow-lg transition-shadow">
+
+  <!-- Nombre del evento -->
+  <div class="mb-4">
+    <p class="text-lg font-bold text-gray-800">
+      Nombre:
+    </p>
     <div class="testing-event-name" id="event-<%= event.id %>">
-      <%= link_to event.name, event_path(event) %>
+      <%= link_to event.name, event_path(event), class: "text-blue-600 hover:text-blue-800 underline" %>
     </div>
-  </p>
+  </div>
 
-  <p>
-    <strong>Fecha:</strong>
-    <%= event.date %>
-  </p>
+  <!-- Fecha del evento -->
+  <div class="mb-4">
+    <p class="text-lg font-bold text-gray-800">
+      Fecha:
+    </p>
+    <p class="text-gray-600">
+      <%= event.date.strftime("%d %b %Y") %> <!-- Formato más amigable para la fecha -->
+    </p>
+  </div>
 
-  <p>
-    <strong>Descripcion:</strong>
-    <%= event.description %>
-  </p>
+  <!-- Descripción del evento -->
+  <div>
+    <p class="text-lg font-bold text-gray-800">
+      Descripción:
+    </p>
+    <p class="text-gray-600">
+      <%= event.description %>
+    </p>
+  </div>
+  
 </div>
