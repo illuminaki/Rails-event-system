@@ -1,10 +1,17 @@
-<h1>Editing event</h1>
+<div class="container mx-auto p-6 max-w-4xl">
 
-<%= render "form", event: @event %>
+  <!-- Título principal -->
+  <h1 class="text-3xl font-bold mb-6 text-gray-800">Editing Event</h1>
 
-<br>
+  <!-- Renderizar el formulario -->
+  <div class="bg-white p-8 rounded-lg shadow-md">
+    <%= render "form", event: @event %>
+  </div>
 
-<div>
-  <%= link_to "Show this event", @event %> |
-  <%= link_to "Back to events", events_path %>
+  <!-- Enlaces para mostrar el evento y regresar a todos los eventos -->
+  <div class="mt-6 flex space-x-4">
+    <%= link_to "Show this event", @event, class: "text-blue-600 hover:text-blue-800 font-semibold" %>
+    <%= link_to "Back to events", events_path, class: "text-blue-600 hover:text-blue-800 font-semibold" %>
+  </div>
+
 </div>
