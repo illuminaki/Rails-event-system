@@ -176,7 +176,7 @@ Edit rails_helper.rb to configure RSpec with FactoryBot, Faker, Devise, and Simp
 5. Create Testing Directories
 Ensure directories like spec/models, spec/controllers, and spec/factories are present. You can organize factories under spec/factories to keep them organized.
 
-# Step 4 Css Tailwind CSS
+# Step 4 Tailwind CSS
 
 
 1. Add required gems to your Gemfile
