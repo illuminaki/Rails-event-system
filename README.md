@@ -277,7 +277,7 @@ Ahora deberías poder usar clases de Tailwind en tus vistas. Puedes probarlo añ
 1. **Problemas con Turbo y Tailwind**: Turbo a veces puede causar problemas con la recarga de CSS. Puedes intentar deshabilitar Turbo para algunas secciones si ves que el CSS no se aplica como esperas.
 
 2. **Compilación del CSS**: Asegúrate de que el archivo CSS generado esté siendo compilado correctamente. Si haces cambios en el archivo `tailwind.config.js`, podrías necesitar reiniciar el servidor Rails para que los cambios se reflejen.
-
+Concerns
 3. **PurgeCSS**: Tailwind purga los estilos que no son utilizados para mantener el CSS final ligero. Asegúrate de que tus clases estén dentro de las rutas especificadas en `tailwind.config.js`.
 
 ### **Resumen**  🚀
@@ -285,3 +285,98 @@ Ahora deberías poder usar clases de Tailwind en tus vistas. Puedes probarlo añ
 - Ejecutaste `rails tailwindcss:install` para instalar Tailwind.
 - Verificaste que el archivo `application.html.erb` incluye la referencia a `application.css`.
 - Puedes personalizar Tailwind en el archivo `tailwind.config.js`.
+
+
+# **Step 5: Implementación de Roles de Usuario**
+
+En este paso, aprenderás cómo agregar y usar roles en tu aplicación Rails mediante un campo `permission_level` en la tabla `users`. Este campo permitirá distinguir entre usuarios normales y administradores.
+
+## **1. Agregar el campo `permission_level`**
+
+### **Crear la migración**
+Genera una migración para agregar el campo `permission_level` a la tabla `users`:
+
+```bash
+rails generate migration AddPermissionLevelToUsers permission_level:integer
+```
+
+### **Modificar la migración**
+Edita la migración generada para establecer un valor predeterminado y que el campo no acepte valores nulos:
+
+```bash
+class AddPermissionLevelToUsers < ActiveRecord::Migration[7.0]
+  def change
+    add_column :users, :permission_level, :integer, default: 0, null: false
+  end
+end
+```
+
+### **Ejecutar la migración**
+Aplica la migración para actualizar la base de datos:
+
+```bash
+rails db:migrate
+```
+
+---
+
+## **2. Crear la lógica en el modelo**
+
+En el modelo `User`, agrega métodos que definan la lógica para verificar roles:
+
+```bash
+class User < ApplicationRecord
+  # Devuelve true si el usuario es normal (permission_level = 0)
+  def is_normal_user?
+    self.permission_level == 0
+  end
+
+  # Devuelve true si el usuario es administrador (permission_level = 1)
+  def is_admin?
+    self.permission_level == 1
+  end
+end
+```
+
+---
+
+## **3. Crear un helper para reutilizar la lógica**
+
+Para evitar lógica repetida en las vistas, crea un helper en `app/helpers/application_helper.rb`:
+
+```bash
+module ApplicationHelper
+  def admin_user?
+    current_user&.is_admin?
+  end
+end
+```
+
+Este helper verifica si el usuario actual es administrador, manejando también el caso donde `current_user` sea `nil`.
+
+---
+
+## **4. Usar el helper en las vistas**
+
+Ahora puedes usar el método `admin_user?` en cualquier vista para personalizar el contenido según el rol del usuario. Por ejemplo, en la vista `app/views/partials/_navbar.html.erb`:
+
+```erb
+<% if admin_user? %>
+  <li>
+    <%= link_to 'Admin', admin_path, class: 'hover:text-gray-300 text-lg font-semibold' %>
+  </li>
+<% end %>
+```
+
+---
+
+## **Resultado esperado**
+
+Con esta implementación:
+- El campo `permission_level` se utiliza para definir roles de usuario.
+- Los métodos `is_normal_user?` y `is_admin?` permiten verificar roles fácilmente.
+- El helper `admin_user?` encapsula la lógica para usarla en las vistas de forma limpia y reutilizable.
+
+Ahora puedes extender esta funcionalidad según sea necesario para agregar más roles o restricciones.
+
+--- 

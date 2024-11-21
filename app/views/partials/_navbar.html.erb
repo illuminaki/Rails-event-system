@@ -3,8 +3,11 @@
     
     <!-- Logo y enlace al root de la app -->
     <div class="flex items-center space-x-4">
-      <%= link_to 'Home', root_path, class: "text-2xl font-bold hover:text-gray-200" %>
-    </div>
+     </div>
+
+  <% if admin_user? %>
+    <%= image_tag "https://media.giphy.com/media/11JTxkrmq4bGE0/giphy.gif", alt: "GIF animado" , style:"width: 75px; border-radius: 100%;"%>
+  <% end %>
 
     <!-- Menú de navegación -->
     <ul class="flex items-center space-x-6">
