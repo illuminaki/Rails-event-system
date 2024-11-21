@@ -9,6 +9,16 @@ class User < ApplicationRecord
   # Callback after user creation to send confirmation email
   after_create :send_confirmation_email
 
+  # Devuelve true si el usuario es normal (permission_level = 0)
+  def is_normal_user?
+    self.permission_level == 0
+  end
+
+  # Devuelve true si el usuario es administrador (permission_level = 1)
+  def is_admin?
+    self.permission_level == 1
+  end
+
   private
 
   # Custom method to send confirmation instructions
