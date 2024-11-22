@@ -8,12 +8,17 @@ class Event < ApplicationRecord
     validates :date, presence: true  # Ensure that the date is present
     validates :description, presence: true, length: { maximum: 500 }  # Ensure the description is not too long
     validate :date_is_not_past # Ensure that the event date is not in the past
+    validates :tickets_quantity, numericality: { greater_than_or_equal_to: 0 }, allow_nil: true
+    validates :capacity, numericality: { greater_than_or_equal_to: 0 }, allow_nil: true
+    
 
     # Callbacks
     before_save :adjust_event_date  # Adjust event date before saving to ensure consistency
     before_validation :normalize_name  # Normalize the name (strip spaces and titleize) before validating
     after_save :log_event_creation  # Log event creation after the event has been saved
-    after_create :send_welcome  # Send a welcome message after the event is created
+    after_create :send_welcome  # Send a welcome message after the event is created in logs console
+    after_create :notify_ticket_creation # Callback para enviar la solicitud al endpoint externo
+
 
     # Scopes
     scope :added_in_last_30_days, -> { where('created_at >= ?', 30.days.ago) }  # Scope to fetch events created in the last 30 days
@@ -52,5 +57,25 @@ class Event < ApplicationRecord
     # Send a welcome message (for now just logging to console) when a new event is created
     def send_welcome
         Rails.logger.info "Sending welcome in console server for the new event '#{name}'."  # Simulate sending a welcome message
+    end
+
+      # Callback para enviar la solicitud al endpoint externo
+    def notify_ticket_creation
+        payload = {
+        event_id: id,
+        user_id: user_id,
+        tickets_quantity: tickets_quantity,
+        capacity: capacity
+        }
+
+        # Llama al servicio para enviar los datos
+        response = TicketCreationService.new(payload).call
+
+        # Opcional: Maneja posibles errores y registra en los logs
+        if response[:success]
+        Rails.logger.info "Tickets successfully created for event '#{name}' with ID #{id}."
+        else
+        Rails.logger.error "Failed to create tickets for event '#{name}': #{response[:error]}"
+        end
     end
 end
