@@ -244,6 +244,16 @@ Finally, start your Rails server:
 ```
 You should now be able to use Tailwind classes in your views. You can test it by adding a class like `bg-blue-500` in one of your views to see if it works:
 
+### ¿Qué es ./bin/dev? **
+
+./bin/dev is a script provided by the foreman gem (or overmind, depending on your configuration) that allows you to run multiple processes in parallel when developing your Rails application. These processes include:
+
+The Rails server (which was started by rails s).
+JavaScript/CSS processors such as esbuild, webpack, or Vite.
+Other services needed for your local environment, such as Redis or Sidekiq.
+
+The bin/dev file is usually configured to run these processes simultaneously using a file called Procfile.dev.
+
 ### Common Troubleshooting**
 1. Problems with Turbo and Tailwind: Turbo can sometimes cause problems with CSS reloading. You can try disabling Turbo for some sections if you find that the CSS does not apply as expected.
 2. Compiling the CSS: Make sure that the generated CSS file is being compiled correctly. If you make changes to the `tailwind.config.js` file, you may need to restart the Rails server for the changes to be reflected.
