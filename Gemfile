@@ -70,6 +70,9 @@ group :development, :test do
   # pruebas de integración o pruebas de características (feature tests)
   gem "capybara"
   gem "selenium-webdriver"
+  # api documentation
+  gem 'oas_rails'
+
 end
 
 group :development do

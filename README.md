@@ -389,3 +389,135 @@ In app/models/event.rb:
 6. Test the flow 
 Create an event from the GUI or console. Be sure to include tickets_quantity and capacity in the form or in the parameters when creating the event.
 Check the logs. Verify that the request to the endpoint is done correctly and that the response is handled without errors.
+
+# **Step 7: API Documentation with OasRails**
+
+In this step, we will integrate automatic API documentation for our Rails project using the **OasRails** gem. This documentation will dynamically generate an OpenAPI Specification (OAS) document for all the API endpoints, making it easier for developers to understand and interact with your API.
+
+---
+
+1. Add the OasRails Gem
+
+Add the gem to your `Gemfile` under the default group:
+
+```ruby
+gem 'oas_rails'
+```
+
+Then install it by running:
+
+```bash
+bundle install
+```
+
+---
+
+2. Mount the OasRails Engine
+
+To expose the API documentation, you need to mount the OasRails engine in your `config/routes.rb`. Add the following line:
+
+```ruby
+mount OasRails::Engine => '/docs'
+```
+
+This will make the documentation available at `http://localhost:3000/docs`.
+
+---
+
+3. Configure OasRails
+
+Generate the configuration file by running:
+
+```bash
+rails generate oas_rails:config
+```
+
+This will create a new initializer file in `config/initializers/oas_rails.rb`. Open this file and customize the basic information about your API, such as title, description, and contact details:
+
+```ruby
+OasRails.configure do |config|
+  config.info.title = "Ticketing API"
+  config.info.description = "API documentation for ticketing capabilities within the application."
+  config.info.contact.name = "Sebastián Agudelo"
+  config.info.contact.email = "support@example.com"
+  config.servers = [
+    { url: "http://localhost:3000", description: "Local Development Server" },
+    { url: "https://api.example.com", description: "Production Server" }
+  ]
+end
+```
+
+---
+
+4. Document Your Endpoints
+
+OasRails uses YARD-style comments to enrich the generated documentation. Open the `app/controllers/api/v1/tickets_controller.rb` file and add documentation tags to the `create` action:
+
+```ruby
+class Api::V1::TicketsController < ApplicationController
+  # @summary Creates tickets for an event.
+  # @parameter event_id(path) [Integer] The ID of the event.
+  # @parameter tickets_quantity(body) [Integer] The number of tickets to be created.
+  # @response Successful creation(200) [Hash{message: String, data: Hash}]
+  # @response Event not found(404) [Hash{error: String}]
+  # @response Unprocessable entity(422) [Hash{error: String}]
+  def create
+    event = Event.find(params[:event_id])
+    return render json: { error: "Event not found" }, status: :not_found if event.nil?
+
+    payload = {
+      event_id: event.id,
+      user_id: event.user_id,
+      tickets_quantity: params[:tickets_quantity],
+      capacity: event.capacity
+    }
+
+    response = TicketCreationService.new(payload).call
+
+    if response[:success]
+      event.update(tickets_quantity: params[:tickets_quantity])
+      render json: { message: "Tickets successfully created", data: response[:data] }, status: :ok
+    else
+      render json: { error: response[:error] }, status: :unprocessable_entity
+    end
+  end
+end
+```
+
+---
+
+5. Start Your Server and Access the Documentation
+
+Start your Rails server:
+
+```bash
+rails server
+```
+
+Visit `http://localhost:3000/docs` to see the dynamically generated API documentation.
+
+---
+
+6. Secure the Documentation (Optional)
+
+If you want to restrict access to the documentation, you can use Devise or any authentication mechanism. For example, restrict it to admin users:
+
+```ruby
+authenticate :user, ->(user) { user.admin? } do
+  mount OasRails::Engine => '/docs'
+end
+```
+
+---
+
+7. Testing the Documentation
+
+1. Visit the `/docs` endpoint to ensure the documentation is visible.
+2. Verify that all endpoints are correctly documented with parameters, responses, and descriptions.
+3. Test the functionality of the interactive documentation by making sample requests using the UI.
+
+---
+
+Final Notes
+
+Integrating **OasRails** in your project ensures that your API is well-documented and developer-friendly. The dynamic generation of OpenAPI specs makes it easier to maintain and keeps the documentation up-to-date with minimal effort.
