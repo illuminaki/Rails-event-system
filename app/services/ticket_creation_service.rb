@@ -1,8 +1,5 @@
 class TicketCreationService
-    require 'net/http'
-    require 'uri'
-    require 'json'
-  
+
     def initialize(payload)
       @payload = payload
       @api_url = ENV['TICKETS_API_URL'] || 'https://example.com/api/v1/tickets'
@@ -19,13 +16,11 @@ class TicketCreationService
         begin
           response = http.request(request)
           response_body = JSON.parse(response.body)
-      
-          # Maneja respuestas simples con "status": "OK"
-          if response.code.to_i == 201 || response_body['status'] == "OK"
-            { success: true, data: response_body }
-          else
-            { success: false, error: response_body['error'] || 'Error desconocido' }
-          end
+            if response.code.to_i == 201 || response_body['status'] == "OK"
+              { success: true, data: response_body }
+            else
+              { success: false, error: response_body['error'] || 'Error desconocido' }
+            end
         rescue StandardError => e
           { success: false, error: e.message }
         end
