@@ -1,3 +1,7 @@
+
+require 'sidekiq/web'
+require 'sidekiq-scheduler/web'
+
 Rails.application.routes.draw do
   devise_for :users
   resources :events
@@ -10,6 +14,10 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :events, only: [:show, :create]
     end
+  end
+
+  authenticate :user do  # Add authentication if needed
+    mount Sidekiq::Web => '/sidekiq'
   end
   
 end

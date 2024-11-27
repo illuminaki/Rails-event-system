@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      /* Estilos inline para compatibilidad con correos */
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+      }
+      .email-container {
+        max-width: 600px;
+        margin: 20px auto;
+        background-color: #ffffff;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+      }
+      .header {
+        background-color: #2566EB;
+        color: #ffffff;
+        text-align: center;
+        padding: 20px;
+      }
+      .header h1 {
+        margin: 0;
+        font-size: 24px;
+      }
+      .content {
+        padding: 20px;
+      }
+      .content p {
+        margin: 0 0 15px;
+        color: #333333;
+      }
+      .event-details {
+        margin: 20px 0;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        background-color: #f9f9f9;
+      }
+      .event-details ul {
+        list-style: none;
+        padding: 0;
+      }
+      .event-details li {
+        margin: 10px 0;
+        font-size: 14px;
+        color: #555555;
+      }
+      .footer {
+        text-align: center;
+        padding: 10px;
+        background-color: #f4f4f4;
+        font-size: 12px;
+        color: #888888;
+      }
+      .event-item {
+        margin-bottom: 15px;
+        border-bottom: 1px solid #ddd;
+        padding-bottom: 10px;
+      }
+      .event-item:last-child {
+        border-bottom: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="email-container">
+      <div class="header">
+        <h1>Daily Events Report</h1>
+      </div>
+      <div class="content">
+        <p>Hello <strong><%= @admin.username || @admin.email %></strong>,</p>
+        <p>Here is the summary of events created today, <%= Date.today.strftime('%B %d, %Y') %>:</p>
+        <% if @events.any? %>
+          <div class="event-details">
+            <% @events.each do |event| %>
+              <div class="event-item">
+                <p><strong>Event Name:</strong> <%= event.name %></p>
+                <p><strong>Description:</strong> <%= event.description %></p>
+                <p><strong>Date:</strong> <%= event.date.strftime('%B %d, %Y') %></p>
+                <p><strong>Created At:</strong> <%= event.created_at.strftime('%I:%M %p') %></p>
+              </div>
+            <% end %>
+          </div>
+        <% else %>
+          <p>No events were created today.</p>
+        <% end %>
+        <p>Thank you!</p>
+      </div>
+      <div class="footer">
+        <p>&copy; <%= Time.now.year %> Your Company. All rights reserved.</p>
+      </div>
+    </div>
+  </body>
+</html>

@@ -521,3 +521,174 @@ end
 Final Notes
 
 Integrating **OasRails** in your project ensures that your API is well-documented and developer-friendly. The dynamic generation of OpenAPI specs makes it easier to maintain and keeps the documentation up-to-date with minimal effort.
+
+
+# **Step 8: Jobs - Sidekiq - Redis**
+
+1. **Add the Gems**
+
+Add the required gems for job scheduling and Redis to your `Gemfile`:
+
+```ruby
+# Jobs and scheduling
+gem 'sidekiq', '~> 7.2', '>= 7.2.4'
+gem 'sidekiq-scheduler', '~> 5.0', '>= 5.0.3'
+gem 'redis', '~> 4.0'
+```
+
+Then install them by running:
+
+```bash
+bundle install
+```
+
+---
+
+2. **Configure Sidekiq**
+
+Create a new initializer file for Sidekiq to set up the configuration.
+
+**File:** `config/initializers/sidekiq.rb`
+
+```ruby
+require 'sidekiq-scheduler'
+
+Sidekiq.configure_server do |config|
+  # Load the schedule file when Sidekiq starts
+  config.on(:startup) do
+    Sidekiq.schedule = YAML.load_file(File.expand_path('../../sidekiq_schedule.yml', __FILE__))
+    Sidekiq::Scheduler.reload_schedule!
+  end
+end
+
+Sidekiq.configure_client do |config|
+  # Client configuration can go here (optional)
+end
+```
+
+---
+
+3. **Set Up Redis**
+
+Ensure Redis is installed and running on your machine or server. You can install Redis on Ubuntu with:
+
+```bash
+sudo apt update
+sudo apt install redis
+```
+
+Start Redis:
+
+```bash
+sudo service redis start
+```
+
+in some cases it is not necessary to run redis manually verify if once installed it is running in the background with the following command
+Verify Redis is running:
+```bash
+redis-cli ping
+```
+
+4. **Create the Sidekiq Schedule**
+
+Create a YAML file to define the schedule for recurring jobs.
+
+**File:** `config/sidekiq_schedule.yml`
+
+```yaml
+# Configuration for recurring jobs in Sidekiq
+daily_events_report:
+  cron: "0 0 * * *" # Runs every day at 12:00 AM
+  class: "DailyEventsReportJob"
+  queue: "default"
+  description: "Send a daily report of events created to admin users."
+```
+
+This file tells Sidekiq to run the `DailyEventsReportJob` every day at midnight.
+
+---
+
+5. **Create the Job**
+
+Define the job that will be triggered by Sidekiq.
+
+**File:** `app/jobs/daily_events_report_job.rb`
+
+```ruby
+class DailyEventsReportJob < ApplicationJob
+  # Use the default queue
+  queue_as :default
+
+  def perform
+    # Find events created today
+    today_events = Event.where(created_at: Date.today.all_day)
+
+    # Find admin users (permission_level: 1)
+    admins = User.where(permission_level: 1)
+
+    # If there are events and admins, send the report
+    if today_events.any? && admins.any?
+      admins.each do |admin|
+        EventMailer.daily_events_report(admin, today_events).deliver_now
+      end
+    else
+      Rails.logger.info "No events or admins to notify for the day #{Date.today}."
+    end
+  end
+end
+```
+
+---
+
+6. **Create the Mailer**
+
+Define the mailer to format and send the emails.
+
+**File:** `app/mailers/event_mailer.rb`
+
+```ruby
+class EventMailer < ApplicationMailer
+  def daily_events_report(admin, events)
+    @admin = admin
+    @events = events
+    mail(to: @admin.email, subject: "Daily Events Report - #{Date.today}")
+  end
+end
+```
+
+---
+
+7. **Design the Email Template**
+
+Create an HTML template for the email.
+
+**File:** `app/views/event_mailer/daily_events_report.html.erb`
+
+8. **Run Sidekiq**
+
+Start the Sidekiq server to process jobs:
+
+```bash
+bundle exec sidekiq
+```
+
+---
+
+9. **Test the Job**
+
+To manually test the job, open the Rails console and run:
+
+```ruby
+DailyEventsReportJob.perform_now
+```
+
+This will execute the job and send the email to admin users for today’s events.
+
+10. **Summary**
+
+With these steps, you’ve successfully:
+- Set up Sidekiq and Redis for background job processing.
+- Created a recurring job to send daily event reports to admins.
+- Designed and implemented a clean email template for the report.
+
+This is a scalable and efficient solution for recurring background tasks in Rails. 🚀
