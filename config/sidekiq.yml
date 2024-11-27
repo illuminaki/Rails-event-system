@@ -1,0 +1,19 @@
+# Sets the maximum number of threads that can be used for processing jobs concurrently.
+# The value is fetched from the environment variable `RAILS_MAX_THREADS` if it exists,
+# otherwise, it defaults to 5 threads.
+:concurrency: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+# Specifies the maximum amount of time (in seconds) a job can take before it is considered to have timed out.
+:timeout: 25
+# Defines the number of times a job can be retried if it fails.
+# After reaching this limit, the job will not be retried further.
+:max_retries: 3
+# Configures the queues for job processing, with their priorities.
+# Each queue is represented as a list, where the first element is the queue name,
+# and the second element is its priority (lower numbers mean higher priority).
+:queues:
+  # The "recurring_jobs" queue with a priority of 1 as well.
+  # This can be used for tasks that are scheduled to run periodically.
+  - [recurring_jobs, 1]
+  # The "default" queue with a priority of 1 (higher priority).
+  - [default, 2]
+  

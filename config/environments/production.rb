@@ -90,4 +90,23 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    address: 'smtp-relay.brevo.com',
+    port: 587,
+    user_name: ENV['BREVO_USERNAME'],
+    password: ENV['BREVO_PASSWORD'],
+    authentication: 'login',
+    enable_starttls_auto: true,
+    openssl_verify_mode: 'none'
+  }
+
+  # Specify a default URL for Devise’s confirmation links
+  # for example for railway
+    config.hosts << "example.com"
+    config.active_storage.url_options = { host: 'example.com' }
+    config.action_mailer.default_url_options = { host: 'example.com' }
+  
+
 end

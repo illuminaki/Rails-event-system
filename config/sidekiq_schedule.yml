@@ -1,0 +1,17 @@
+# Configuration for recurring jobs in Sidekiq
+daily_events_report:
+  # The cron expression defines when the job will run.
+  # "0 0 * * *" means the job will run every day at 12:00 AM (midnight).
+  cron: "0 0 * * *"
+
+  # Specifies the class of the job that will be executed.
+  # In this case, it points to the `DailyEventsReportJob` class.
+  class: "DailyEventsReportJob"
+
+  # Determines the queue in which the job will be enqueued.
+  # The `default` queue is typically used for general-purpose tasks.
+  queue: "default"
+
+  # Provides a brief description of what the job does.
+  # This helps to document the purpose of the job and makes the configuration easier to understand.
+  description: "Send a daily report of events created to admin users."

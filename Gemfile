@@ -28,7 +28,10 @@ gem "stimulus-rails"
 gem "jbuilder"
 
 # Use Redis adapter to run Action Cable in production
-# gem "redis", "~> 4.0"
+gem "redis", "~> 4.0"
+# Jobs programables
+gem 'sidekiq', '~> 7.2', '>= 7.2.4'
+gem 'sidekiq-scheduler', '~> 5.0', '>= 5.0.3'
 
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"
@@ -72,6 +75,8 @@ group :development, :test do
   gem "selenium-webdriver"
   # api documentation
   gem 'oas_rails'
+
+  gem 'letter_opener', '~> 1.10'
 
 end
 
