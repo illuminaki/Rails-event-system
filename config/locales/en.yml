@@ -1,33 +1,62 @@
-# Files in the config/locales directory are used for internationalization
-# and are automatically loaded by Rails. If you want to use locales other
-# than English, add the necessary files in this directory.
-#
-# To use the locales, use `I18n.t`:
-#
-#     I18n.t "hello"
-#
-# In views, this is aliased to just `t`:
-#
-#     <%= t("hello") %>
-#
-# To use a different locale, set it with `I18n.locale`:
-#
-#     I18n.locale = :es
-#
-# This would use the information in config/locales/es.yml.
-#
-# The following keys must be escaped otherwise they will not be retrieved by
-# the default I18n backend:
-#
-# true, false, on, off, yes, no
-#
-# Instead, surround them with single quotes.
-#
-# en:
-#   "true": "foo"
-#
-# To learn more, please read the Rails Internationalization guide
-# available at https://guides.rubyonrails.org/i18n.html.
-
 en:
-  hello: "Hello world"
+  events:
+    title: "Events"
+    new_event: "New Event"
+    show_event: "Show this event"
+    recent_events: "Events Added in the Last 30 Days"
+    upcoming_events: "Next week's events"
+    attributes:
+      name: "Name"
+      date: "Date"
+      description: "Description"
+      tickets_quantity: "Tickets Quantity"
+      capacity: "Capacity"
+  date:
+    formats:
+      long: "%B %d, %Y"
+  errors:
+    template:
+      header:
+        one: "1 error prevented this %{model} from being saved"
+        other: "%{count} errors prevented this %{model} from being saved"
+      body: "The following errors need to be corrected"
+  helpers:
+    submit:
+      create: "Create %{model}"
+      update: "Update %{model}"
+      destroy: "Destroy %{model}"
+    confirm:
+      destroy: "Are you sure you want to destroy %{model}?"
+  devise:
+    sessions:
+      login: "Login"
+      logout: "Logout"
+    registrations:
+      register: "Register"
+  activerecord:
+    errors:
+      models:
+        event:
+          attributes:
+            date:
+              blank: "Date can't be blank"
+              invalid: "Date is not valid"
+            description:
+              blank: "Description can't be blank"
+              too_long: "Description can't exceed %{count} characters"
+            name:
+              blank: "Name can't be blank"
+              too_short: "Name must be at least %{count} characters long"
+              too_long: "Name can't exceed %{count} characters"
+              invalid: "Name can only include letters, numbers, and spaces"
+            tickets_quantity:
+              not_a_number: "Must be a number"
+              greater_than_or_equal_to: "Must be greater than or equal to %{count}"
+            capacity:
+              not_a_number: "Must be a number"
+              greater_than_or_equal_to: "Must be greater than or equal to %{count}"
+          blank: "This field is required"
+  errors:
+    messages:
+      blank: "Can't be blank"
+      invalid: "Is invalid"

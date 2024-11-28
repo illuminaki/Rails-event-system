@@ -12,11 +12,11 @@
 
   <div class="flex justify-between items-center mb-6">
     <div>
-      <%= link_to "Edit this event", edit_event_path(@event), class: "text-blue-600 hover:text-blue-800 font-semibold" %> |
-      <%= link_to "Back to events", events_path, class: "text-blue-600 hover:text-blue-800 font-semibold" %>
+      <%= link_to t("events.show_event"), edit_event_path(@event), class: "text-blue-600 hover:text-blue-800 font-semibold" %> |
+      <%= link_to t("events.title"), events_path, class: "text-blue-600 hover:text-blue-800 font-semibold" %>
     </div>
 
-    <%= button_to "Destroy this event", @event, method: :delete, data: { confirm: "Are you sure?" }, class: "bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" %>
+    <%= button_to t("helpers.submit.destroy", model: Event.model_name.human), @event, method: :delete, data: { confirm: t("helpers.confirm.destroy", model: Event.model_name.human) }, class: "bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" %>
   </div>
 
 </div>

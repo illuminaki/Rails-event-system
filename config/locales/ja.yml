@@ -1,0 +1,62 @@
+ja:
+  events:
+    title: "イベント"
+    new_event: "新しいイベント"
+    show_event: "このイベントを見る"
+    recent_events: "過去30日間に追加されたイベント"
+    upcoming_events: "来週のイベント"
+    attributes:
+      name: "名前"
+      date: "日付"
+      description: "説明"
+      tickets_quantity: "チケット数"
+      capacity: "収容人数"
+  date:
+    formats:
+      long: "%Y年%m月%d日"
+  errors:
+    template:
+      header:
+        one: "%{model}の保存を妨げる1つのエラーが発生しました"
+        other: "%{model}の保存を妨げる%{count}個のエラーが発生しました"
+      body: "以下のエラーを修正してください"
+  helpers:
+    submit:
+      create: "%{model}を作成"
+      update: "%{model}を更新"
+      destroy: "%{model}を削除"
+    confirm:
+      destroy: "%{model}を削除してもよろしいですか？"
+  devise:
+    sessions:
+      login: "ログイン"
+      logout: "ログアウト"
+    registrations:
+      register: "登録"
+  activerecord:
+    errors:
+      models:
+        event:
+          attributes:
+            date:
+              blank: "日付を入力してください"
+              invalid: "無効な日付です"
+            description:
+              blank: "説明を入力してください"
+              too_long: "説明は%{count}文字以下で入力してください"
+            name:
+              blank: "名前を入力してください"
+              too_short: "名前は少なくとも%{count}文字必要です"
+              too_long: "名前は%{count}文字以下で入力してください"
+              invalid: "名前には文字、数字、およびスペースのみ使用できます"
+            tickets_quantity:
+              not_a_number: "数字を入力してください"
+              greater_than_or_equal_to: "%{count}以上である必要があります"
+            capacity:
+              not_a_number: "数字を入力してください"
+              greater_than_or_equal_to: "%{count}以上である必要があります"
+          blank: "このフィールドは必須です"
+  errors:
+    messages:
+      blank: "入力が必要です"
+      invalid: "無効です"

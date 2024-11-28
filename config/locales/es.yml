@@ -1,0 +1,62 @@
+es:
+  events:
+    title: "Eventos"
+    new_event: "Nuevo Evento"
+    show_event: "Ver este evento"
+    recent_events: "Eventos añadidos en los últimos 30 días"
+    upcoming_events: "Eventos de la próxima semana"
+    attributes:
+      name: "Nombre"
+      date: "Fecha"
+      description: "Descripción"
+      tickets_quantity: "Cantidad de boletos"
+      capacity: "Capacidad"
+  date:
+    formats:
+      long: "%d de %B de %Y"
+  errors:
+    template:
+      header:
+        one: "1 error impidió guardar este %{model}"
+        other: "%{count} errores impidieron guardar este %{model}"
+      body: "Los siguientes errores necesitan ser corregidos"
+  helpers:
+    submit:
+      create: "Crear %{model}"
+      update: "Actualizar %{model}"
+      destroy: "Eliminar %{model}"
+    confirm:
+      destroy: "¿Estás seguro de que deseas eliminar %{model}?"
+  devise:
+    sessions:
+      login: "Iniciar sesión"
+      logout: "Cerrar sesión"
+    registrations:
+      register: "Registrarse"
+  activerecord:
+    errors:
+      models:
+        event:
+          attributes:
+            date:
+              blank: "La fecha es obligatoria"
+              invalid: "La fecha no es válida"
+            description:
+              blank: "La descripción es obligatoria"
+              too_long: "La descripción no puede tener más de %{count} caracteres"
+            name:
+              blank: "El nombre es obligatorio"
+              too_short: "El nombre debe tener al menos %{count} caracteres"
+              too_long: "El nombre no puede tener más de %{count} caracteres"
+              invalid: "El nombre solo puede contener letras, números y espacios"
+            tickets_quantity:
+              not_a_number: "Debe ser un número"
+              greater_than_or_equal_to: "Debe ser mayor o igual a %{count}"
+            capacity:
+              not_a_number: "Debe ser un número"
+              greater_than_or_equal_to: "Debe ser mayor o igual a %{count}"
+          blank: "Este campo es obligatorio"
+  errors:
+    messages:
+      blank: "No puede estar vacío"
+      invalid: "No es válido"
