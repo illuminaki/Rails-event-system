@@ -23,34 +23,6 @@ class EventsController < ApplicationController
   def edit
   end
 
-  def reserve_tickets
-    event_id = params[:event_id]
-    quantity = params[:quantity].to_i
-  
-    # Validar que la cantidad sea válida
-    if quantity <= 0
-      return render json: { error: "Invalid quantity" }, status: :bad_request
-    end
-  
-    tickets = Ticket.per_event(event_id).where(statuses: 1).limit(quantity)
-  
-    # Validar si hay suficientes tickets disponibles
-    if tickets.size < quantity
-      return render json: { error: "Not enough tickets available" }, status: :range_not_satisfiable
-    end
-  
-      if tickets.exists?
-        ticket_data = tickets.map { |ticket| { id: ticket.id, serial: ticket.serial } }
-    
-        render json: {
-          event_id: event_id,
-          tickets: ticket_data
-        }, status: :ok
-      else
-      render json: { error: "Event not found or no tickets available" }, status: :not_found
-    end
-  end
-  
   # POST /events or /events.json
   def create
     @event = Event.new(event_params)

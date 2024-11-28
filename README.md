@@ -747,11 +747,7 @@ Replace hardcoded text with calls to the I18n helper `t` (short for translate). 
 <h1><%= t("events.title") %></h1>
 ```
 
----
-
-4. **Add Dynamic Locale Switching**
-
-1. **Include Locale in Routes**
+4. **Include Locale in Routes**
 
 Update `config/routes.rb` to add a scope for locales:
 ```ruby
@@ -761,7 +757,7 @@ scope "(:locale)", locale: /en|es|ja/ do
 end
 ```
 
-2. **Set Locale in ApplicationController**
+5. **Set Locale in ApplicationController**
 
 Update `ApplicationController` to handle the locale:
 ```ruby
@@ -782,9 +778,7 @@ end
 
 ---
 
-# **Step 5: Add a Language Switcher**
-
-1. **Add a Dropdown or Select Element**
+5. Add a Language Switcher**
 
 Replace static links with a language switcher using a `select`:
 
@@ -799,21 +793,19 @@ Replace static links with a language switcher using a `select`:
 
 ---
 
-# **Step 6: Test Your Implementation**
+6. Test Your Implementation**
 
-1. Visit your application and confirm that:
+- Visit your application and confirm that:
    - The locale parameter is added to the URL (e.g., `/en/events` or `/es/events`).
    - Text updates dynamically based on the selected language.
 
-2. Test edge cases:
+- Test edge cases:
    - Switching locales on various pages.
    - Pages without the locale parameter.
 
----
+7.  Add Date Localization**
 
-# **Step 7: Add Date Localization**
-
-1. Update the translation files to include date formats. For example, in `config/locales/es.yml`:
+Update the translation files to include date formats. For example, in `config/locales/es.yml`:
 ```yaml
 es:
   date:
@@ -821,14 +813,9 @@ es:
       long: "%d de %B de %Y"
 ```
 
-2. Use the `l` (short for localize) helper in your views for dates:
-```erb
-<p><%= l(event.date, format: :long) %></p>
-```
-
 ---
 
-# **Step 8: Expand Translations**
+8. Expand Translations**
 
 1. Ensure all user-facing text is replaced with `t` calls.
 2. Add translations for form labels, button texts, and validation messages in your YAML files.
@@ -843,4 +830,3 @@ es:
         other: "%{count} errores impidieron guardar este %{model}"
       body: "Los siguientes errores necesitan ser corregidos:"
 ```
-
