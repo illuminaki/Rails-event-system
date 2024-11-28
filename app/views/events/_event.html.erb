@@ -1,8 +1,8 @@
 <div id="<%= dom_id(event) %>" class="border p-6 mb-6 bg-gray-50 rounded-lg shadow hover:shadow-lg transition-shadow">
-
+  
   <div class="mb-4">
     <p class="text-lg font-bold text-gray-800">
-      Nombre:
+      <%= t("events.attributes.name") %>:
     </p>
     <div class="testing-event-name" id="event-<%= event.id %>">
       <%= link_to event.name, event_path(event), class: "text-blue-600 hover:text-blue-800 underline" %>
@@ -11,25 +11,25 @@
   
   <div class="mb-4">
     <p class="text-lg font-bold text-gray-800">
-      Fecha:
+      <%= t("events.attributes.date") %>:
     </p>
     <p class="text-gray-600">
-      <%= event.date.strftime("%d %b %Y") %>
+      <%= l(event.date, format: :long) %> <!-- Usar formato localizado -->
     </p>
   </div>
   
-  <div>
+  <div class="mb-4">
     <p class="text-lg font-bold text-gray-800">
-      Descripción:
+      <%= t("events.attributes.description") %>:
     </p>
     <p class="text-gray-600">
       <%= event.description %>
     </p>
   </div>
   
-  <div>
+  <div class="mb-4">
     <p class="text-lg font-bold text-gray-800">
-      Descripción:
+      <%= t("events.attributes.tickets_quantity") %>:
     </p>
     <p class="text-gray-600">
       <%= event.tickets_quantity %>
@@ -38,11 +38,11 @@
   
   <div>
     <p class="text-lg font-bold text-gray-800">
-      Descripción:
+      <%= t("events.attributes.capacity") %>:
     </p>
     <p class="text-gray-600">
       <%= event.capacity %>
     </p>
   </div>  
-  
+
 </div>

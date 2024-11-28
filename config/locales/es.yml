@@ -1,0 +1,29 @@
+es:
+  events:
+    title: "Eventos"
+    new_event: "Nuevo Evento"
+    show_event: "Ver este evento"
+    recent_events: "Eventos añadidos en los últimos 30 días"
+    upcoming_events: "Eventos de la próxima semana"
+    attributes:
+      name: "Nombre"
+      date: "Fecha"
+      description: "Descripción"
+      tickets_quantity: "Cantidad de boletos"
+      capacity: "Capacidad"
+  date:
+    formats:
+      long: "%d de %B de %Y"
+  errors:
+    template:
+      header:
+        one: "1 error impidió guardar este %{model}"
+        other: "%{count} errores impidieron guardar este %{model}"
+      body: "Los siguientes errores necesitan ser corregidos"
+  helpers:
+    submit:
+      create: "Crear %{model}"
+      update: "Actualizar %{model}"
+      destroy: "Eliminar %{model}"
+    confirm:
+      destroy: "¿Estás seguro de que deseas eliminar %{model}?"

@@ -11,7 +11,14 @@
 
     <!-- Menú de navegación -->
     <ul class="flex items-center space-x-6">
-      <% if user_signed_in? %>
+
+    <li>
+      <div class="language-switcher">
+        <%= link_to "🇬🇧 English", url_for(locale: :en), class: "text-white-600" %> |
+        <%= link_to "🇨🇴 Español", url_for(locale: :es), class: "text-white-600" %> |
+        <%= link_to "🇯🇵 日本語", url_for(locale: :ja), class: "text-white-600" %>
+      </div>
+    </li><% if user_signed_in? %>
         <!-- Enlace de Logout -->
         <li>
           <%= form_for(:user, url: destroy_user_session_path, method: :delete) do |f| %>

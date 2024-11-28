@@ -1,7 +1,9 @@
 <div class="container mx-auto p-6 max-w-4xl">
 
   <!-- Título principal -->
-  <h1 class="text-3xl font-bold mb-6 text-gray-800">New Event</h1>
+  <h1 class="text-3xl font-bold mb-6 text-gray-800">
+    <%= t('events.new_event') %>
+  </h1>
 
   <!-- Renderizar el formulario -->
   <div class="bg-white p-8 rounded-lg shadow-md">
@@ -10,7 +12,7 @@
 
   <!-- Enlace para volver a la lista de eventos -->
   <div class="mt-6">
-    <%= link_to "Back to events", events_path, class: "text-blue-600 hover:text-blue-800 font-semibold" %>
+    <%= link_to t('events.title'), events_path, class: "text-blue-600 hover:text-blue-800 font-semibold" %>
   </div>
 
 </div>

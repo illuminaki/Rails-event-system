@@ -1,0 +1,29 @@
+ja:
+  events:
+    title: "イベント"
+    new_event: "新しいイベント"
+    show_event: "このイベントを見る"
+    recent_events: "過去30日間に追加されたイベント"
+    upcoming_events: "来週のイベント"
+    attributes:
+      name: "名前"
+      date: "日付"
+      description: "説明"
+      tickets_quantity: "チケット数"
+      capacity: "収容人数"
+  date:
+    formats:
+      long: "%Y年%m月%d日"
+  errors:
+    template:
+      header:
+        one: "%{model}の保存を妨げる1つのエラーが発生しました"
+        other: "%{model}の保存を妨げる%{count}個のエラーが発生しました"
+      body: "以下のエラーを修正してください"
+  helpers:
+    submit:
+      create: "%{model}を作成"
+      update: "%{model}を更新"
+      destroy: "%{model}を削除"
+    confirm:
+      destroy: "%{model}を削除してもよろしいですか？"
