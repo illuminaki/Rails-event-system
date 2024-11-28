@@ -27,3 +27,36 @@ en:
       destroy: "Destroy %{model}"
     confirm:
       destroy: "Are you sure you want to destroy %{model}?"
+  devise:
+    sessions:
+      login: "Login"
+      logout: "Logout"
+    registrations:
+      register: "Register"
+  activerecord:
+    errors:
+      models:
+        event:
+          attributes:
+            date:
+              blank: "Date can't be blank"
+              invalid: "Date is not valid"
+            description:
+              blank: "Description can't be blank"
+              too_long: "Description can't exceed %{count} characters"
+            name:
+              blank: "Name can't be blank"
+              too_short: "Name must be at least %{count} characters long"
+              too_long: "Name can't exceed %{count} characters"
+              invalid: "Name can only include letters, numbers, and spaces"
+            tickets_quantity:
+              not_a_number: "Must be a number"
+              greater_than_or_equal_to: "Must be greater than or equal to %{count}"
+            capacity:
+              not_a_number: "Must be a number"
+              greater_than_or_equal_to: "Must be greater than or equal to %{count}"
+          blank: "This field is required"
+  errors:
+    messages:
+      blank: "Can't be blank"
+      invalid: "Is invalid"

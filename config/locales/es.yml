@@ -27,3 +27,36 @@ es:
       destroy: "Eliminar %{model}"
     confirm:
       destroy: "¿Estás seguro de que deseas eliminar %{model}?"
+  devise:
+    sessions:
+      login: "Iniciar sesión"
+      logout: "Cerrar sesión"
+    registrations:
+      register: "Registrarse"
+  activerecord:
+    errors:
+      models:
+        event:
+          attributes:
+            date:
+              blank: "La fecha es obligatoria"
+              invalid: "La fecha no es válida"
+            description:
+              blank: "La descripción es obligatoria"
+              too_long: "La descripción no puede tener más de %{count} caracteres"
+            name:
+              blank: "El nombre es obligatorio"
+              too_short: "El nombre debe tener al menos %{count} caracteres"
+              too_long: "El nombre no puede tener más de %{count} caracteres"
+              invalid: "El nombre solo puede contener letras, números y espacios"
+            tickets_quantity:
+              not_a_number: "Debe ser un número"
+              greater_than_or_equal_to: "Debe ser mayor o igual a %{count}"
+            capacity:
+              not_a_number: "Debe ser un número"
+              greater_than_or_equal_to: "Debe ser mayor o igual a %{count}"
+          blank: "Este campo es obligatorio"
+  errors:
+    messages:
+      blank: "No puede estar vacío"
+      invalid: "No es válido"

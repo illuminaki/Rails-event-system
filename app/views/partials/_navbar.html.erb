@@ -11,29 +11,31 @@
 
     <!-- Menú de navegación -->
     <ul class="flex items-center space-x-6">
-
-    <li>
-      <div class="language-switcher">
-        <%= link_to "🇬🇧 English", url_for(locale: :en), class: "text-white-600" %> |
-        <%= link_to "🇨🇴 Español", url_for(locale: :es), class: "text-white-600" %> |
-        <%= link_to "🇯🇵 日本語", url_for(locale: :ja), class: "text-white-600" %>
-      </div>
-    </li><% if user_signed_in? %>
+      <li>
+        <div class="language-switcher">
+          <%= link_to "🇬🇧 English", url_for(locale: :en), class: "text-white-600" %> |
+          <%= link_to "🇨🇴 Español", url_for(locale: :es), class: "text-white-600" %> |
+          <%= link_to "🇯🇵 日本語", url_for(locale: :ja), class: "text-white-600" %>
+        </div>
+      </li>
+      
+      <% if user_signed_in? %>
         <!-- Enlace de Logout -->
         <li>
           <%= form_for(:user, url: destroy_user_session_path, method: :delete) do |f| %>
-            <%= f.submit 'Logout', class: 'bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline' %>
+            <%= f.submit t('devise.sessions.logout'), class: 'bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline' %>
           <% end %>
         </li>
       <% else %>
         <!-- Enlaces de Login y Registro -->
         <li>
-          <%= link_to 'Login', new_user_session_path, class: "hover:text-gray-300 text-lg font-semibold" %>
+          <%= link_to t('devise.sessions.login'), new_user_session_path, class: "hover:text-gray-300 text-lg font-semibold" %>
         </li>
         <li>
-          <%= link_to 'Register', new_user_registration_path, class: "hover:text-gray-300 text-lg font-semibold" %>
+          <%= link_to t('devise.registrations.register'), new_user_registration_path, class: "hover:text-gray-300 text-lg font-semibold" %>
         </li>
       <% end %>
+
     </ul>
   </div>
 </nav>

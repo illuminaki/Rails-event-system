@@ -348,29 +348,29 @@ Generate the API driver
 Run the following command to generate the controller inside the Api::V1 namespace:
 
 ```bash
-rails generate controller Api::V1/Tickets create
+rails generate controller Api::V1/Events create
 ```
-This will create the app/controllers/api/v1/tickets_controller.rb file and update the routes.
+This will create the app/controllers/api/v1/events_controller.rb file and update the routes.
 
 2. Configure the routes 
 In the config/routes.rb file, add the following path for the POST endpoint /api/v1/tickets:
 
 ```bash
-class User < ApplicationRecord
+
 namespace :api do
   namespace :v1 do
-    resources :tickets, only: [:create]
+    resources :events, only: [:create]
   end
 end
 
 ```
 
 3. Implement the controller logic 
-Open the app/controllers/api/v1/tickets_controller.rb file and add the necessary logic to handle the request and process it:
+Open the app/controllers/api/v1/events_controller.rb file and add the necessary logic to handle the request and process it:
 include in event_params the fields
 
 4. Create the service to handle the external API 
-Create a file for the service in app/services/ticket_creation_service.rb that will handle communication with the external API.
+Create a file for the service in app/services/event_creation_service.rb that will handle communication with the external API.
 In the config/routes.rb file, add the following path for the POST endpoint /api/v1/tickets:
 
 ```bash
@@ -692,3 +692,155 @@ With these steps, you’ve successfully:
 - Designed and implemented a clean email template for the report.
 
 This is a scalable and efficient solution for recurring background tasks in Rails. 🚀
+
+
+# **Step 9: Configure I18n in Rails**
+
+1. **Verify Rails' Built-in I18n Support**
+
+Rails 7 comes with built-in support for internationalization (I18n). Ensure your application is ready to use it by adding or verifying the following configuration in `config/application.rb`:
+
+```ruby
+module YourAppName
+  class Application < Rails::Application
+    config.i18n.default_locale = :es
+    config.i18n.available_locales = [:en, :es, :ja]
+    config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}')]
+  end
+end
+```
+
+2. **Add Locale Files**
+
+Create YAML files in the `config/locales` directory for each language you want to support. For example:
+
+- `config/locales/en.yml`
+- `config/locales/es.yml`
+- `config/locales/ja.yml`
+
+Here’s an example structure for `es.yml`:
+```yaml
+es:
+  events:
+    title: "Eventos"
+    attributes:
+      name: "Nombre"
+      date: "Fecha"
+      description: "Descripción"
+```
+
+Repeat for the other languages with appropriate translations.
+
+---
+
+3. **Update Views to Use I18n**
+
+Replace hardcoded text with calls to the I18n helper `t` (short for translate). Example:
+
+### Original Code:
+```erb
+<h1>Events</h1>
+```
+
+### Updated Code:
+```erb
+<h1><%= t("events.title") %></h1>
+```
+
+---
+
+4. **Add Dynamic Locale Switching**
+
+1. **Include Locale in Routes**
+
+Update `config/routes.rb` to add a scope for locales:
+```ruby
+scope "(:locale)", locale: /en|es|ja/ do
+  root "events#index"
+  resources :events
+end
+```
+
+2. **Set Locale in ApplicationController**
+
+Update `ApplicationController` to handle the locale:
+```ruby
+class ApplicationController < ActionController::Base
+  before_action :set_locale
+
+  private
+
+  def set_locale
+    I18n.locale = params[:locale] || I18n.default_locale
+  end
+
+  def default_url_options
+    { locale: I18n.locale }
+  end
+end
+```
+
+---
+
+# **Step 5: Add a Language Switcher**
+
+1. **Add a Dropdown or Select Element**
+
+Replace static links with a language switcher using a `select`:
+
+```erb
+<%= form_with url: request.path, method: :get, local: true do |f| %>
+  <%= f.select :locale,
+    [["🇬🇧 English", "en"], ["🇨🇴 Español", "es"], ["🇯🇵 日本語", "ja"]],
+    { selected: I18n.locale },
+    { onchange: "this.form.submit()", class: "bg-gray-100 border rounded p-2" } %>
+<% end %>
+```
+
+---
+
+# **Step 6: Test Your Implementation**
+
+1. Visit your application and confirm that:
+   - The locale parameter is added to the URL (e.g., `/en/events` or `/es/events`).
+   - Text updates dynamically based on the selected language.
+
+2. Test edge cases:
+   - Switching locales on various pages.
+   - Pages without the locale parameter.
+
+---
+
+# **Step 7: Add Date Localization**
+
+1. Update the translation files to include date formats. For example, in `config/locales/es.yml`:
+```yaml
+es:
+  date:
+    formats:
+      long: "%d de %B de %Y"
+```
+
+2. Use the `l` (short for localize) helper in your views for dates:
+```erb
+<p><%= l(event.date, format: :long) %></p>
+```
+
+---
+
+# **Step 8: Expand Translations**
+
+1. Ensure all user-facing text is replaced with `t` calls.
+2. Add translations for form labels, button texts, and validation messages in your YAML files.
+
+Example for validation messages:
+```yaml
+es:
+  errors:
+    template:
+      header:
+        one: "1 error impidió guardar este %{model}"
+        other: "%{count} errores impidieron guardar este %{model}"
+      body: "Los siguientes errores necesitan ser corregidos:"
+```
+
