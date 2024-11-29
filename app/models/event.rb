@@ -62,10 +62,14 @@ class Event < ApplicationRecord
       # Callback para enviar la solicitud al endpoint externo
     def notify_ticket_creation
         payload = {
-        event_id: id,
-        user_id: user_id,
-        tickets_quantity: tickets_quantity,
-        capacity: capacity
+            event_id: id,
+            user_id: user_id,
+            event_name: name,
+            event_date: date,
+            event_description: description,
+            tickets_quantity: tickets_quantity,
+            capacity: capacity,
+            created_at: created_at
         }
 
         # Llama al servicio para enviar los datos

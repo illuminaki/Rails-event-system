@@ -17,6 +17,7 @@ Rails.application.routes.draw do
     end
 
   end
+  post '/api/v1/tickets', to: 'tickets#create'
 
   # sidekiq
   authenticate :user do  # Add authentication if needed
