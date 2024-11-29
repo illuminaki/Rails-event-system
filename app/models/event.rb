@@ -17,7 +17,7 @@ class Event < ApplicationRecord
     before_validation :normalize_name  # Normalize the name (strip spaces and titleize) before validating
     after_save :log_event_creation  # Log event creation after the event has been saved
     after_create :send_welcome  # Send a welcome message after the event is created in logs console
-    after_create :notify_ticket_creation # Callback para enviar la solicitud al endpoint externo
+    # after_create :notify_ticket_creation # Callback para enviar la solicitud al endpoint externo
 
 
     # Scopes
@@ -60,26 +60,26 @@ class Event < ApplicationRecord
     end
 
       # Callback para enviar la solicitud al endpoint externo
-    def notify_ticket_creation
-        payload = {
-            event_id: id,
-            user_id: user_id,
-            event_name: name,
-            event_date: date,
-            event_description: description,
-            tickets_quantity: tickets_quantity,
-            capacity: capacity,
-            created_at: created_at
-        }
+    # def notify_ticket_creation
+    #     payload = {
+    #         event_id: id,
+    #         user_id: user_id,
+    #         event_name: name,
+    #         event_date: date,
+    #         event_description: description,
+    #         tickets_quantity: tickets_quantity,
+    #         capacity: capacity,
+    #         created_at: created_at
+    #     }
 
-        # Llama al servicio para enviar los datos
-        response = TicketCreationService.new(payload).call
+    #     # Llama al servicio para enviar los datos
+    #     response = TicketCreationService.new(payload).call
 
-        # Opcional: Maneja posibles errores y registra en los logs
-        if response[:success]
-        Rails.logger.info "Tickets successfully created for event '#{name}' with ID #{id}."
-        else
-        Rails.logger.error "Failed to create tickets for event '#{name}': #{response[:error]}"
-        end
-    end
+    #     # Opcional: Maneja posibles errores y registra en los logs
+    #     if response[:success]
+    #     Rails.logger.info "Tickets successfully created for event '#{name}' with ID #{id}."
+    #     else
+    #     Rails.logger.error "Failed to create tickets for event '#{name}': #{response[:error]}"
+    #     end
+    # end
 end
