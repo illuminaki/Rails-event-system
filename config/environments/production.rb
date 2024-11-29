@@ -104,9 +104,9 @@ Rails.application.configure do
 
   # Specify a default URL for Devise’s confirmation links
   # for example for railway
-    config.hosts << "example.com"
-    config.active_storage.url_options = { host: 'example.com' }
-    config.action_mailer.default_url_options = { host: 'example.com' }
+    config.hosts << "https://rails-event-system.onrender.com"
+    config.active_storage.url_options = { host: 'https://rails-event-system.onrender.com' }
+    config.action_mailer.default_url_options = { host: 'https://rails-event-system.onrender.com' }
   
 
 end
