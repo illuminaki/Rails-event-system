@@ -55,7 +55,9 @@ gem "bootsnap", require: false
 gem 'tailwindcss-rails', '~> 3.0'
 
 gem "rack-cors"
-
+# autenticacion
+gem 'devise', '~> 4.9', '>= 4.9.4'
+  
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri mingw x64_mingw ]
@@ -70,8 +72,6 @@ group :development, :test do
   gem 'faker', '~> 3.5', '>= 3.5.1'
   # Code coverage for Ruby with a UI
   gem 'simplecov', '~> 0.22.0'
-  # autenticacion
-  gem 'devise', '~> 4.9', '>= 4.9.4'
   # pruebas de integración o pruebas de características (feature tests)
   gem "capybara"
   gem "selenium-webdriver"
