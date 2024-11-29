@@ -57,7 +57,8 @@ gem 'tailwindcss-rails', '~> 3.0'
 gem "rack-cors"
 # autenticacion
 gem 'devise', '~> 4.9', '>= 4.9.4'
-  
+  # api documentation
+gem 'oas_rails'  
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri mingw x64_mingw ]
@@ -75,8 +76,7 @@ group :development, :test do
   # pruebas de integración o pruebas de características (feature tests)
   gem "capybara"
   gem "selenium-webdriver"
-  # api documentation
-  gem 'oas_rails'
+
 
   gem 'letter_opener', '~> 1.10'
 
