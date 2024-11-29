@@ -35,6 +35,9 @@ en:
       register: "Register"
   activerecord:
     errors:
+      messages:
+        blank: "Can't be blank"
+        invalid: "Is invalid"
       models:
         event:
           attributes:
@@ -56,7 +59,3 @@ en:
               not_a_number: "Must be a number"
               greater_than_or_equal_to: "Must be greater than or equal to %{count}"
           blank: "This field is required"
-  errors:
-    messages:
-      blank: "Can't be blank"
-      invalid: "Is invalid"

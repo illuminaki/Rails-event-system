@@ -35,6 +35,12 @@ ja:
       register: "登録"
   activerecord:
     errors:
+      messages:
+        blank: "入力が必要です"
+        invalid: "無効です"
+        too_short: "短すぎます（%{count}文字以上）"
+        too_long: "長すぎます（%{count}文字以下）"
+        not_a_number: "数字を入力してください"
       models:
         event:
           attributes:
@@ -56,10 +62,4 @@ ja:
               not_a_number: "数字を入力してください"
               greater_than_or_equal_to: "%{count}以上である必要があります"
           blank: "このフィールドは必須です"
-  errors:
-    messages:
-      blank: "入力が必要です"
-      invalid: "無効です"
-      too_short: "短すぎます（%{count}文字以上）"
-      too_long: "長すぎます（%{count}文字以下）"
-      not_a_number: "数字を入力してください"
+  
