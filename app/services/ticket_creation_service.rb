@@ -1,3 +1,8 @@
+
+require 'net/http'
+require 'uri'
+require 'json'
+
 class TicketCreationService
 
     def initialize(payload)
